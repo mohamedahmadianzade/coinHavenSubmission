@@ -55,6 +55,22 @@ implementing log in middleware or inceptor is a good way and can implemented ver
 
 with this implemented log system, we can group the log by many fields like module,function,service and extra ....
 
+
+## Project structure
+using Nest js module system pattern including 
+
+ 1- controller (handle request, exception handling, validation , transformation)
+
+ 2- service ( bussiness logic and data access layer )
+
+ 2-1 we could seperate BL and DAL layer and have seperate classes for each one for future use , but for simplicity, in this version we have just 2 Controller and service Layer
+
+using typeOrm as DAL repository for communication with database
+
+using mongo as main database and redis stream for communication with log service
+
+
+
 ## Installation
 
 ```bash
