@@ -45,6 +45,19 @@ Conssist of two project
 
 
 
+## How to run project
+First, please run one version of activity logger.it will listen to redis streams for recieving user activity and exception logs.
+
+Both version(microservice and stand alone), need to connect to mongo and redis. so please set correct values in .evn file.
+
+Second, you can run Authentication service with 2 way.
+
+1- start rest-api-version service which listen on port 3009 and need to edit .evn file for redis and mongo configuration
+
+2- start grpc server which listen on port 5004. it need to set redis,mongo and redis stream information in .env file.
+
+2-1 start grpc client which listen on port 3002.it just need to set grp information on .env file.
+
 
 
 ## Stay in touch
