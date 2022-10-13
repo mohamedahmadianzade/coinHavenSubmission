@@ -45,7 +45,7 @@ $ npm run start:prod
 
 ## Test
 ```
-For test please run the project and nevigate to address http://localhost:3010/graphql and use queries wrote in authentication.grapgh.query file in root project directory
+For test please run the project and nevigate to address http://localhost:3010/graphql and use queries wrote in authentication.grapgh.query file in root project directoryn or use queries below
 ```
 
 
@@ -66,7 +66,7 @@ query {
   }
 }
 ```
-### Get By UserId  user
+### Get By UserId  
 ```
 query {
   getByUserId(userId: "0a56b87b-38ae-475d-8770-0b81ccb9f123") {
@@ -78,7 +78,7 @@ query {
 }
 ```
 
-### insert new user
+### Insert new user
 ```
 mutation {
   insert(username: "91", password: "91", fullName: "91", email: "a@a.com") {
@@ -91,7 +91,7 @@ mutation {
 }
 ```
 
-### delete user by userId
+### Delete user by userId
 ```
 mutation {
   delete(userId:"f6e4ac09-1d90-427d-9469-0577bfe41cdf") {
@@ -119,6 +119,61 @@ mutation {
 }
 
 ```
+
+
+
+### Login by username and password
+```
+query {
+  login(username: "2", password: "2") {
+    data {
+      username
+      token
+    }
+    message
+  }
+}
+
+
+```
+
+
+### verify Token
+```
+query {
+  verifyToken(
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIiLCJzdWIiOiIzNTg1ZmNlZi0xNWYzLTQxZjgtOWFjMy04ODAxOTg4YjRlYTkiLCJpYXQiOjE2NjU2Nzk2MjcsImV4cCI6MTY2NTY4MDIyN30.KkFIEa5vA9j7brBeTawnZ03UtALwT6KqjV5hT--uKUE"
+  ) {
+    message
+    data {
+      token
+      message
+    }
+  }
+}
+
+```
+
+
+### /me Get user profile based jwt token
+```
+query {
+  me(
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIiLCJzdWIiOiIzNTg1ZmNlZi0xNWYzLTQxZjgtOWFjMy04ODAxOTg4YjRlYTkiLCJpYXQiOjE2NjU2Nzk2MjcsImV4cCI6MTY2NTY4MDIyN30.KkFIEa5vA9j7brBeTawnZ03UtALwT6KqjV5hT--uKUE"
+  ) {
+    message
+    data {
+      userId
+      fullName
+      email
+      username
+    }
+  }
+}
+
+```
+
+
 
 
 

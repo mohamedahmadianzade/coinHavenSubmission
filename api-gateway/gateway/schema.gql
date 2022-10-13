@@ -54,9 +54,44 @@ type UserUpdateOutputModel {
   data: UserUpdateOutputDataModel!
 }
 
+type MeOutputDataModel {
+  userId: String!
+  username: String!
+  fullName: String!
+  email: String!
+}
+
+type MeOutputModel {
+  message: String!
+  data: MeOutputDataModel!
+}
+
+type UserLoginOutputDataModel {
+  username: String!
+  token: String!
+}
+
+type UserLoginOutputModel {
+  message: String!
+  data: UserLoginOutputDataModel!
+}
+
+type VerifyTokenOutputDataModel {
+  token: String!
+  message: String!
+}
+
+type VerifyTokenOutputModel {
+  message: String!
+  data: VerifyTokenOutputDataModel!
+}
+
 type Query {
   getByUserId(userId: String!): UserGetByIdOutputModel!
   getAll(id: String!): UserGetAllOutputModel!
+  login(username: String!, password: String!): UserLoginOutputModel!
+  me(token: String!): MeOutputModel!
+  verifyToken(token: String!): VerifyTokenOutputModel!
 }
 
 type Mutation {

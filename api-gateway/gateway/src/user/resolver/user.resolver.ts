@@ -5,7 +5,6 @@ import { UserInsertInputModel } from './model/insert/userInsertInput.model';
 import { UserGetByIdOutputModel } from './model/getById/userGetByIdOutput.model';
 import { UserInsertOutputModel } from './model/insert/userInsertOutput.model';
 import { UserModel } from './model/user.model';
-import { UserGetAllOutputDataModel } from './model/getAll/userGetAllOutputData.model';
 import { UserDeleteOutputModel } from './model/delete/userDeleteByIdOutput.model';
 import { UserUpdateOutputModel } from './model/update/userUpdateOutput.model';
 import { UserUpdateInputModel } from './model/update/userUpdateInput.model';

@@ -54,9 +54,40 @@ mutation {
 }
 
 
+query {
+  login(username: "2", password: "2") {
+    data {
+      username , token
+    } ,
+    message
+  }
+}
 
+query {
+  verifyToken(
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIiLCJzdWIiOiIzNTg1ZmNlZi0xNWYzLTQxZjgtOWFjMy04ODAxOTg4YjRlYTkiLCJpYXQiOjE2NjU2Nzk2MjcsImV4cCI6MTY2NTY4MDIyN30.KkFIEa5vA9j7brBeTawnZ03UtALwT6KqjV5hT--uKUE"
+  ) {
+    message
+    data {
+      token
+      message
+    }
+  }
+}
 
-
+query {
+  me(
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIiLCJzdWIiOiIzNTg1ZmNlZi0xNWYzLTQxZjgtOWFjMy04ODAxOTg4YjRlYTkiLCJpYXQiOjE2NjU2Nzk2MjcsImV4cCI6MTY2NTY4MDIyN30.KkFIEa5vA9j7brBeTawnZ03UtALwT6KqjV5hT--uKUE"
+  ) {
+    message
+    data {
+      userId
+      fullName
+      email
+      username
+    }
+  }
+}
 
 
 
