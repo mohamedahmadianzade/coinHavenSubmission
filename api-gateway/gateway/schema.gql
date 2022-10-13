@@ -1,0 +1,26 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  userId: String!
+  username: String!
+  password: String!
+  fullName: String!
+  email: String!
+}
+
+type ServiceResultDataArrayModel {
+  message: String!
+  data: [User!]!
+}
+
+type ServiceResultDataObjectModel {
+  message: String!
+  data: User!
+}
+
+type Query {
+  getByUserId(userId: String!): ServiceResultDataObjectModel!
+  getAll(id: String!): ServiceResultDataArrayModel!
+}

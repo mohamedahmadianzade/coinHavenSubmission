@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package authenticationservice;
+
+service UserController{
+    rpc getAll(UserGetAllInputModel) returns (UserGetAllOutputModel){}
+    rpc get(UserId) returns (UserGetOutputModel){}
+    rpc delete(UserId) returns (UserDeleteOutputModel){}
+    rpc insert(UserInsertInputModel) returns (UserInsertOutputModel){}
+    rpc update(UserUpdateInputModel) returns (UserUpdateOutputModel){}
+    rpc username(Username) returns (UserGetOutputModel){}
+}
+
+service AuthController{
+    rpc me(Empty) returns(UserGetOutputModel){}
+    rpc login(LoginInputModel) returns(LoginOutputModel){}
+    rpc verifyToken(VerifyToken) returns(verifyOutputModel){}
+}
+
+
+message Empty{
+}
+
+message VerifyToken{
+    string token=1;
+}
+message verifyDataModel{
+    string message=1;
+    string token=2;
+}
+message verifyOutputModel{
+    verifyDataModel data=1;
+    string message=2;
+}
+
+message UserId{
+    string userId=1;
+}
+message Username{
+    string username=1;
+}
+message UserInsertInputModel{
+  string username =1;
+  string password =2;
+  string fullName =3;
+  string email =4;
+}
+message UserInsertOutputDataModel{
+    string userId=1;
+    string username =2;
+}
+message UserInsertOutputModel
+{
+    string message=1;
+    UserInsertOutputDataModel data=2;
+}
+
+message UserDeleteDataModel
+{
+    string userId=1;
+}
+
+message UserDeleteOutputModel{
+    UserDeleteDataModel data=1;
+    string message=2;
+}
+
+
+message UserUpdateDataModel
+{
+    string userId=1;
+}
+
+message UserUpdateOutputModel{
+    UserUpdateDataModel data=1;
+    string message=2;
+}
+
+
+message UserUpdateInputModel{
+    string fullName =1;
+    string email =2;
+    string userId=3;
+}
+
+message User{
+    string username =1;
+    string userId =2;
+    string fullName =3;
+    string email =4;
+}
+
+message UserGetAllInputModel{
+    string pageNumber=1;
+    string pageSize=2;
+}
+message UserGetAllOutputModel{
+    string message=1;
+    repeated User data=2;
+}
+
+message UserGetOutputModel{
+    string message=1;
+    User data=2;
+}
+
+message LoginInputModel
+{
+    string username=1;
+    string password=2;
+}
+
+message LoginDataModel{
+    string username=1;
+    string token=2;
+}
+message LoginOutputModel
+{
+    string message=1;
+    LoginDataModel data=2;
+}
