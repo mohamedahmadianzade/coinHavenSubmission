@@ -50,9 +50,10 @@ For test please run the project and nevigate to address http://localhost:3010/gr
 
 
 ## Graphql Queries
-```
+
 
 ### GetAll users
+```
 query {
   getAll(id: "1") {
     data {
@@ -64,8 +65,9 @@ query {
     message
   }
 }
-
-
+```
+### Get By UserId  user
+```
 query {
   getByUserId(userId: "0a56b87b-38ae-475d-8770-0b81ccb9f123") {
     data {
@@ -74,7 +76,10 @@ query {
     message
   }
 }
+```
 
+### insert new user
+```
 mutation {
   insert(username: "91", password: "91", fullName: "91", email: "a@a.com") {
     message
@@ -84,8 +89,10 @@ mutation {
     }
   }
 }
+```
 
-
+### delete user by userId
+```
 mutation {
   delete(userId:"f6e4ac09-1d90-427d-9469-0577bfe41cdf") {
     message
@@ -94,7 +101,10 @@ mutation {
     }
   }
 }
+```
 
+### Update user by userId
+```
 mutation {
   update(
     fullName: "hamid akbarnejad"
