@@ -20,7 +20,9 @@ export class UserResolver {
   }
 
   @Query((returns) => UserGetAllOutputModel, { name: 'getAll' })
-  async getAll(@Args() userGetAllInputModel:UserGetAllInputModel) {
+  async getAll(
+    @Args() userGetAllInputModel: UserGetAllInputModel,
+  ) {
     let result = await this.userService.getAll(userGetAllInputModel);
     return result;
   }
