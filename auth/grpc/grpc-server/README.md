@@ -28,7 +28,19 @@ A Rest api project which have all methods implemented in GRPC server as rest api
 ## Authentication
 I used jwtModule for (creating,verify,decode) jwt token operation in the system, instead of using third-party module for authentication, I implemented it by storing and query user collection in the database. 
 
-For advanced authentication, the generated token should be save in database and have expiration based on logic and should be checked in authentication process.but in this version, the token are not saved in any place
+For advanced authentication, the generated token should be save in database and have expiration based on logic and should be checked in authentication process
+
+
+### token 
+All generated tokens are stored in database and with each new token generation,old token related to that user will be expired
+
+In verifing Process, there is 3 step3
+
+1- check the token signature
+
+2- decode the token and extract information from that
+
+3- check the expiration of token stored in database
 
 
 ## Logging
