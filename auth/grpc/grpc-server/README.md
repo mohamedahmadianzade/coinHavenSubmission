@@ -5,26 +5,67 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  <p align="center">
+  A GRPC version of Authentication system includind authenctication and user crud operation
+  </p>
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+GRPC vesion of Authentication system including user authentication and crud operation
+
+This version is completely running and has following features:
+
+1- Authentucation ( signin, verifyToken and me services)
+
+2- User crud (insert,delete,getAll,get,update)
+
+These service can be tested via grpc client (a Nestjs Http server with many api which call related grpc server methods)
+
+## GRPC client
+A Rest api project which have all methods implemented in GRPC server as rest api service. in this project, there is a postman file which can be imported to test and calling implemented controller methods.
+
+
+## Authentication
+I used jwtModule for (creating,verify,decode) jwt token operation in the system, instead of using third-party module for authentication, I implemented it by storing and query user collection in the database. 
+
+For advanced authentication, the generated token should be save in database and have expiration based on logic and should be checked in authentication process.but in this version, the token are not saved in any place
+
+
+## Logging
+For loggin user activity, we can implement it in many places in the project based our need. for example, it can be implemented in 
+
+1- middleware
+
+2- interceptor
+
+3- Controller file or service file in the project
+
+because I wanted to have logical field in the log table such as modulename , servicename, function name  and I wanted to have the result of the request in log file, I decied to implement it in controller file.
+
+for that, I have a base controller class which all controller in project extend that and have controllerResult and handleError method
+which do their jobs and logging too.
+
+we should send some information to these method like request object and function name to can have full details of user activity
+
+implementing log in middleware or inceptor is a good way and can implemented very easy but the problem we can not have logical fields in logging..
+
+with this implemented log system, we can group the log by many fields like module,function,service and extra ....
+
+
+## Project structure
+using Nest js module system pattern including 
+
+ 1- controller (handle request, exception handling, validation , transformation)
+
+ 2- service ( bussiness logic and data access layer )
+
+ 2-1 we could seperate BL and DAL layer and have seperate classes for each one for future use , but for simplicity, in this version we have just 2 Controller and service Layer
+
+using typeOrm as DAL repository for communication with database
+
+using mongo as main database and redis stream for communication with log service
+
+
 
 ## Installation
 
@@ -47,27 +88,10 @@ $ npm run start:prod
 
 ## Test
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+This project can be tested with running GRPC client
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Author - Seyed Mohamed Ahmadian
+- phone  - +989159103070
+- email  - mohamed.ahmadian@gmail.com
