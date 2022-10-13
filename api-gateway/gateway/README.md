@@ -10,7 +10,7 @@
 
 ## Description
 
-This project is under development. Until now , user crud operations are implemented and its queries are available at authentication.grapgh.query file.
+Graphql api-gateway communicate with our Authentication service via grpc and can call all service implemented in that serer with related graphql queries and mutations. we are developing the graphql client to can communiate with graphql sever but now we can test these queries via apolo playground. Note that all valid queries for Authentication and user crud operation are listed below or you can find them in file in root project directory.
 
 available queries:
 
@@ -19,6 +19,12 @@ available queries:
 2- getAll users and get user By UserId
 
 3- delete and update user by UserId
+
+4- Login by username and passowrd
+
+5- get user profile based jwt token
+
+6- verify token 
 
 
 these queries can be run on [Apolo Playground](http://localhost:3010/graphql) available at http://localhost:3010/graphql
