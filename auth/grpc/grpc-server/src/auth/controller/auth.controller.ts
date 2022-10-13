@@ -48,7 +48,7 @@ export class AuthController extends BaseController {
       let result = await this.authService.me(metadata.get('token'));
       return this.controllerResult('', result, 'me');
     } catch (error) {
-      this.handleError(error, 'getAll');
+      this.handleError(error, 'me');
     }
   }
 

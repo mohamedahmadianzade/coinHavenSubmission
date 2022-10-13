@@ -1,8 +1,8 @@
 {
-  "name": "rest-api-version",
-  "version": "0.0.1",
+  "name": "authentication_service_rest_version",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
+  "author": "seyed Mohamed Mahdi Ahmadian",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -28,8 +28,8 @@ export class AuthService {
   }
 
   async me(tokenParam: any[]) {
-    let {userId , token} = this.getUserIdFromToken(tokenParam);
-    let validation = await this.verifyToken(token);
+    let { userId, token } = this.getUserIdFromToken(tokenParam);
+    let validation = await this.verifyToken({token});
     if (!validation.isValid) throw new Error('The token is not valid');
     let userInfo = await this.userService.getByUserId(userId);
     return userInfo;
@@ -59,11 +59,10 @@ export class AuthService {
   private getUserIdFromToken(token: any[]) {
     if (!token || token.length != 1)
       throw new Error('Please provide JWT token');
+    let justTokenWithoutBeare = token[0].toString().replace('Bearer ', '');
     let jwtToken;
     try {
-      jwtToken = this.jwtService.decode(
-        token[0].toString().replace('Bearer ', ''),
-      );
+      jwtToken = this.jwtService.decode(justTokenWithoutBeare);
     } catch (error) {
       Error('Jwt token is not valid');
     }
@@ -71,33 +70,33 @@ export class AuthService {
     if (!jwtToken || !jwtToken.sub) throw new Error('Jwt token is not valid');
     return {
       userId: jwtToken.sub,
-      token: jwtToken,
+      token: justTokenWithoutBeare,
     };
   }
 
-    /**
+  /**
    *  generate new token
    *  expire all previous token of related use
    *  storenw token on database
    *
    * @param {User} user
-   * @return {*} 
+   * @return {*}
    * @memberof AuthService
    */
 
-     generateJwtToken(user: User) {
-      let token = this.jwtService.sign({
-        username: user.username,
-        sub: user.userId,
-      });
-      this.saveToken(user.userId, token);
-      return {
-        username: user.username,
-        access_token: token,
-      };
-    }
+  generateJwtToken(user: User) {
+    let token = this.jwtService.sign({
+      username: user.username,
+      sub: user.userId,
+    });
+    this.saveToken(user.userId, token);
+    return {
+      username: user.username,
+      token,
+    };
+  }
 
-   /**
+  /**
    * save generated token in database for userId
    * Expire all previous token of that userId
    *
@@ -106,17 +105,16 @@ export class AuthService {
    * @param {*} token
    * @memberof AuthService
    */
-    private async saveToken(userId, token) {
-      let tokenEntity = new TokenEntity();
-      tokenEntity.createdAt = new Date().toISOString();
-      tokenEntity.userId = userId;
-      tokenEntity.token = token;
-      await this.setAllUserTokenExpired(userId);
-      this.tokenRepository.insert(tokenEntity);
-    }
+  private async saveToken(userId, token) {
+    let tokenEntity = new TokenEntity();
+    tokenEntity.createdAt = new Date().toISOString();
+    tokenEntity.userId = userId;
+    tokenEntity.token = token;
+    await this.setAllUserTokenExpired(userId);
+    this.tokenRepository.insert(tokenEntity);
+  }
 
-
-      /**
+  /**
    * Expire all previouse generated token to userId
    *
    * @private

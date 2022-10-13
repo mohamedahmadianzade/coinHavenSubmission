@@ -43,9 +43,10 @@ export class AuthService {
       throw new Error('password is not valid');
     }
 
+    let tokenResult = await this.generateJwtToken(user);
     return {
       userId: user.userId,
-      ...this.generateJwtToken(user),
+      ...tokenResult,
     };
   }
 
@@ -106,16 +107,15 @@ export class AuthService {
    *  storenw token on database
    *
    * @param {User} user
-   * @return {*} 
+   * @return {*}
    * @memberof AuthService
    */
-
-  generateJwtToken(user: User) {
+  async generateJwtToken(user: User) {
     let token = this.jwtService.sign({
       username: user.username,
       sub: user.userId,
     });
-    this.saveToken(user.userId, token);
+    await this.saveToken(user.userId, token);
     return {
       username: user.username,
       access_token: token,

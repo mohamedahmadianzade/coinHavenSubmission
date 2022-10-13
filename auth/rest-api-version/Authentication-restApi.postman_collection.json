@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "d333b521-9351-4e92-a788-0efecd7347db",
+		"name": "Authentication-restApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"4\",\r\n    \"password\":\"4\",\r\n    \"fullName\":\"Mohamed Ahamdian\",\r\n    \"email\":\"a@a.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/bf859058-d456-4ccf-b848-63fe1dfc2cd2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"bf859058-d456-4ccf-b848-63fe1dfc2cd2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/bf859058-d456-4ccf-b848-63fe1dfc2cd2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"bf859058-d456-4ccf-b848-63fe1dfc2cd2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"hamid akbar\",\r\n    \"email\":\"hamid@mid.com\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/bf859058-d456-4ccf-b848-63fe1dfc2cd2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"bf859058-d456-4ccf-b848-63fe1dfc2cd2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJzdWIiOiI0YmY3NTM3NC0xNTY0LTRiYWMtOGNiNS04ZmUzNzIxN2ZmYWMiLCJpYXQiOjE2NjU0ODA5OTIsImV4cCI6MTY2NTQ4MTU5Mn0.XJgSmJoFm6sIOskRGpub8M_lyV1XTzigQJWyTR8E-T8",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server}}/users?pageNumber=1&pageSize=2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"3\",\r\n    \"password\":\"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMiLCJzdWIiOiI1NzQzZjNhMS00OTkzLTRkMWMtYmYzMS0zNGE2YTJlNTZjNzgiLCJpYXQiOjE2NjUzMjUxMjcsImV4cCI6MTY2NTMyNTcyN30.R_Sadzin2PNeSJmvCPLkl4-7Whuka2dxgDk3T81x5ic",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMiLCJzdWIiOiI1NzQzZjNhMS00OTkzLTRkMWMtYmYzMS0zNGE2YTJlNTZjNzgiLCJpYXQiOjE2NjUzMjMxMjksImV4cCI6MTY2NTMyMzcyOX0.OT3z6EQLm5QsTsmhY-DS41dht1eIAPoOd_Vw2RZ-oxEd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/me",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"me"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJzdWIiOiI0YmY3NTM3NC0xNTY0LTRiYWMtOGNiNS04ZmUzNzIxN2ZmYWMiLCJpYXQiOjE2NjU0ODAzNzUsImV4cCI6MTY2NTQ4MDk3NX0.ktPTBGokR-e93lo-c4vI1KWaHX1UnNvtWXiO08dOAk\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/verifyToken",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"verifyToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentication - without-passport-module",
+			"item": [
+				{
+					"name": "meType2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/meType2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"meType2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginType2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"2\",\r\n    \"password\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/loginType2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"loginType2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost:3009",
+			"type": "default"
+		}
+	]
+}
