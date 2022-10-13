@@ -36,6 +36,24 @@ type UserInsertOutputModel {
   data: UserInsertOutputDataModel!
 }
 
+type UserDeleteOutputDataModel {
+  userId: String!
+}
+
+type UserDeleteOutputModel {
+  message: String!
+  data: UserDeleteOutputDataModel!
+}
+
+type UserUpdateOutputDataModel {
+  userId: String!
+}
+
+type UserUpdateOutputModel {
+  message: String!
+  data: UserUpdateOutputDataModel!
+}
+
 type Query {
   getByUserId(userId: String!): UserGetByIdOutputModel!
   getAll(id: String!): UserGetAllOutputModel!
@@ -43,4 +61,6 @@ type Query {
 
 type Mutation {
   insert(username: String!, password: String!, fullName: String!, email: String!): UserInsertOutputModel!
+  delete(userId: String!): UserDeleteOutputModel!
+  update(fullName: String, email: String, userId: String!): UserUpdateOutputModel!
 }

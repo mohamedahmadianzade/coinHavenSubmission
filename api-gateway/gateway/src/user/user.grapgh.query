@@ -21,12 +21,35 @@ query {
 }
 
 mutation {
-  insert(username: "91", password: "91",fullName:"91",email:"a@a.com") {
+  insert(username: "91", password: "91", fullName: "91", email: "a@a.com") {
     message
     data {
       userId
       username
     }
+  }
+}
+
+
+mutation {
+  delete(userId:"f6e4ac09-1d90-427d-9469-0577bfe41cdf") {
+    message
+    data {
+      userId
+    }
+  }
+}
+
+mutation {
+  update(
+    fullName: "hamid akbarnejad"
+    email: "test@test.com"
+    userId: "3585fcef-15f3-41f8-9ac3-8801988b4ea9"
+  ) {
+    data {
+      userId
+    }
+    message
   }
 }
 
