@@ -61,16 +61,17 @@ For test please run the project and nevigate to address http://localhost:3010/gr
 ### GetAll users
 ```
 query {
-  getAll(id: "1") {
+  getAll(pageSize: 10, pageNumber: 1) {
     data {
       userId
-      username
-      fullName
+      fullName ,
+      username,
       email
     }
     message
   }
 }
+
 ```
 ### Get By UserId  
 ```

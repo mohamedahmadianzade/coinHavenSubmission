@@ -8,6 +8,7 @@ import { UserModel } from './model/user.model';
 import { UserDeleteOutputModel } from './model/delete/userDeleteByIdOutput.model';
 import { UserUpdateOutputModel } from './model/update/userUpdateOutput.model';
 import { UserUpdateInputModel } from './model/update/userUpdateInput.model';
+import { UserGetAllInputModel } from './model/getAll/userGetAllInput.model';
 @Resolver((of) => UserModel)
 export class UserResolver {
   constructor(private userService: UserService) {}
@@ -19,8 +20,8 @@ export class UserResolver {
   }
 
   @Query((returns) => UserGetAllOutputModel, { name: 'getAll' })
-  async getAll(@Args('id') id: string) {
-    let result = await this.userService.getAll();
+  async getAll(@Args() userGetAllInputModel:UserGetAllInputModel) {
+    let result = await this.userService.getAll(userGetAllInputModel);
     return result;
   }
 

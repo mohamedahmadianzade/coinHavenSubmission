@@ -88,7 +88,7 @@ type VerifyTokenOutputModel {
 
 type Query {
   getByUserId(userId: String!): UserGetByIdOutputModel!
-  getAll(id: String!): UserGetAllOutputModel!
+  getAll(pageNumber: Int = 1, pageSize: Int = 10): UserGetAllOutputModel!
   login(username: String!, password: String!): UserLoginOutputModel!
   me(token: String!): MeOutputModel!
   verifyToken(token: String!): VerifyTokenOutputModel!

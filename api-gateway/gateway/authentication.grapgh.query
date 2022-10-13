@@ -1,9 +1,9 @@
 query {
-  getAll(id: "1") {
+  getAll(pageSize: 10, pageNumber: 1) {
     data {
       userId
-      username
-      fullName
+      fullName ,
+      username,
       email
     }
     message
