@@ -12,7 +12,9 @@
 ## Description
 
 At the first, I implemented the rest version of server with some  Nest features like below which I couldn't use in grpc version
+
 1- local and jwt strategy of passport module
+
 2- getting extra inforamtion from request for logging (httpVerb,url,ip, ...)
 
 This version is completely running and has following features:
