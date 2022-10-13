@@ -5,7 +5,7 @@ import { LoginModel } from './model/login.dto';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Injectable } from '@nestjs/common';
 import { Metadata } from '@grpc/grpc-js';
-import { VerifyTokenModel } from './model/verifyToken.model';
+import { VerifyTokenModel } from './model/verifyToken.dto';
 
 @Injectable()
 export class AuthController extends BaseController {

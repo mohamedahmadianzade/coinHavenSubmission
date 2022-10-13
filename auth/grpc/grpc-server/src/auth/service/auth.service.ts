@@ -3,7 +3,10 @@ import { UserService } from '../../user/service/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../../user/user.model';
 import { LoginModel } from '../controller/model/login.dto';
-import { VerifyTokenModel } from '../controller/model/verifyToken.model';
+import { VerifyTokenModel } from '../controller/model/verifyToken.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TokenEntity } from './model/token.entity';
+import { Repository } from 'typeorm';
 const bcrypt = require('bcrypt');
 
 @Injectable()
@@ -11,6 +14,8 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    @InjectRepository(TokenEntity)
+    private tokenRepository: Repository<TokenEntity>,
   ) {}
   async validateUser(loginModel: LoginModel): Promise<any> {
     let user = await this.userService.getByUsername(loginModel.username);
@@ -22,29 +27,38 @@ export class AuthService {
     return this.generateJwtToken(user);
   }
 
-  async me(token: any[]) {
-    let userId = this.getUserIdFromToken(token);
+  async me(tokenParam: any[]) {
+    let {userId , token} = this.getUserIdFromToken(tokenParam);
+    let validation = await this.verifyToken(token);
+    if (!validation.isValid) throw new Error('The token is not valid');
     let userInfo = await this.userService.getByUserId(userId);
     return userInfo;
   }
 
   async verifyToken(verifyTokenModel: VerifyTokenModel) {
-    try {
-      this.jwtService.verify(verifyTokenModel.token);
+    this.jwtService.verify(verifyTokenModel.token);
+    let decoded = this.jwtService.decode(verifyTokenModel.token);
+    let token = await this.tokenRepository.findOneBy({
+      userId: decoded.sub,
+      token: verifyTokenModel.token,
+    });
+    if (token.expired)
       return {
-        message: 'The token is valid',
-        token:verifyTokenModel.token
+        isValid: !token.expired,
+        message: 'token is not valid',
+        token: verifyTokenModel.token,
       };
-    } catch (error) {
+    else
       return {
-        message: 'The token is not valid',
-        token:verifyTokenModel.token
+        isValid: !token.expired,
+        message: 'token is valid',
+        token: verifyTokenModel.token,
       };
-    }
   }
 
   private getUserIdFromToken(token: any[]) {
-    if (!token || token.length != 1) throw new Error('Please provide JWT token');
+    if (!token || token.length != 1)
+      throw new Error('Please provide JWT token');
     let jwtToken;
     try {
       jwtToken = this.jwtService.decode(
@@ -55,16 +69,61 @@ export class AuthService {
     }
 
     if (!jwtToken || !jwtToken.sub) throw new Error('Jwt token is not valid');
-    return jwtToken.sub;
+    return {
+      userId: jwtToken.sub,
+      token: jwtToken,
+    };
   }
 
-  private generateJwtToken(user: User) {
-    return {
-      username: user.username,
-      token: this.jwtService.sign({
+    /**
+   *  generate new token
+   *  expire all previous token of related use
+   *  storenw token on database
+   *
+   * @param {User} user
+   * @return {*} 
+   * @memberof AuthService
+   */
+
+     generateJwtToken(user: User) {
+      let token = this.jwtService.sign({
         username: user.username,
         sub: user.userId,
-      }),
-    };
+      });
+      this.saveToken(user.userId, token);
+      return {
+        username: user.username,
+        access_token: token,
+      };
+    }
+
+   /**
+   * save generated token in database for userId
+   * Expire all previous token of that userId
+   *
+   * @private
+   * @param {*} userId
+   * @param {*} token
+   * @memberof AuthService
+   */
+    private async saveToken(userId, token) {
+      let tokenEntity = new TokenEntity();
+      tokenEntity.createdAt = new Date().toISOString();
+      tokenEntity.userId = userId;
+      tokenEntity.token = token;
+      await this.setAllUserTokenExpired(userId);
+      this.tokenRepository.insert(tokenEntity);
+    }
+
+
+      /**
+   * Expire all previouse generated token to userId
+   *
+   * @private
+   * @param {*} userId
+   * @memberof AuthService
+   */
+  private async setAllUserTokenExpired(userId) {
+    await this.tokenRepository.update({ userId }, { expired: true });
   }
 }

@@ -4,11 +4,14 @@ import { AuthService } from './service/auth.service';
 import { AuthController } from './controller/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TokenEntity } from './service/model/token.entity';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthService],
   imports: [
+    TypeOrmModule.forFeature([TokenEntity]),
     UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

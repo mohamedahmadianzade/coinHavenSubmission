@@ -100,6 +100,16 @@ export class AuthService {
     await this.tokenRepository.update({ userId }, { expired: true });
   }
 
+  /**
+   *  generate new token
+   *  expire all previous token of related use
+   *  storenw token on database
+   *
+   * @param {User} user
+   * @return {*} 
+   * @memberof AuthService
+   */
+
   generateJwtToken(user: User) {
     let token = this.jwtService.sign({
       username: user.username,
