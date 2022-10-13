@@ -44,7 +44,7 @@ export class UserController extends BaseController {
       if (!result) throw new Error('Username is not valid');
       return this.controllerResult('', result, req, 'username');
     } catch (error) {
-      this.handleError(error, req);
+      this.handleError(error, req,'username');
     }
   }
   @Get(':userId')
@@ -53,7 +53,7 @@ export class UserController extends BaseController {
       let result = await this.userService.getByUserId(userGetModel.userId);
       return this.controllerResult('', result, req, 'getByUserId');
     } catch (error) {
-      this.handleError(error, req);
+      this.handleError(error, req,'getByUserId');
     }
   }
 
@@ -69,7 +69,7 @@ export class UserController extends BaseController {
         'delete',
       );
     } catch (error) {
-      this.handleError(error, req);
+      this.handleError(error, req,  'delete');
     }
   }
 
@@ -84,7 +84,7 @@ export class UserController extends BaseController {
         'insert',
       );
     } catch (error) {
-      this.handleError(error, req);
+      this.handleError(error, req, 'insert');
     }
   }
   @Put(':userId')
@@ -105,7 +105,7 @@ export class UserController extends BaseController {
         'update',
       );
     } catch (error) {
-      this.handleError(error, req);
+      this.handleError(error, req,'update');
     }
   }
 }

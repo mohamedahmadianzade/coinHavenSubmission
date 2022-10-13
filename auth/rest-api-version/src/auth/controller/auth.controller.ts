@@ -86,7 +86,7 @@ export class AuthController extends BaseController {
     let result = await this.authService.verifyJwtToken(
       verifyTokenModel.access_token,
     );
-    return this.controllerResult('', result, req,'me');
+    return this.controllerResult('', result, req,'verify');
   }
 
 
