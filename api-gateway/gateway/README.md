@@ -49,7 +49,7 @@ For test please run the project and nevigate to address http://localhost:3010/gr
 ```
 
 
-##Graphql Queries
+## Graphql Queries
 ```
 
 ### GetAll users
