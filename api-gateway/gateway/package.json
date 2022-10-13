@@ -1,8 +1,8 @@
 {
   "name": "gateway",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
+  "author": "seyed mohamed ahmadian",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

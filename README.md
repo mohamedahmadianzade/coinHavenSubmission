@@ -43,7 +43,11 @@ Conssist of two project
 
 2- a Nest stand alone project using redis stream as transport layer by using third party module (node-redis-streams)
 
+## Graphql api gateway
+Graphql api gateway can communicate with our authentication service via grpc.
+It has implemented sevices to access all Authentication service api.
 
+It's service can be tested via apolo playground and the queries for authenticatio and user crud operation are available at the file in root project or in the read me file of the git repository
 
 ## How to run project
 First, please run one version of activity logger.it will listen to redis streams for recieving user activity and exception logs.
@@ -57,6 +61,8 @@ Second, you can run Authentication service with 2 way.
 2- start grpc server which listen on port 5004. it need to set redis,mongo and redis stream information in .env file.
 
 2-1 start grpc client which listen on port 3002.it just need to set grp information on .env file.
+
+3- start graphql server which listen on port 3010. it does not any configuration and for testing, queries are available on readme file and can be tested via apolo playground at addresss http://localhost:3010/graphql
 
 
 
