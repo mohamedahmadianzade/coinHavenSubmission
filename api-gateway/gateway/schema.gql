@@ -2,25 +2,45 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type UserGetAllOutputDataModel {
   userId: String!
   username: String!
-  password: String!
   fullName: String!
   email: String!
 }
 
-type ServiceResultDataArrayModel {
+type UserGetAllOutputModel {
   message: String!
-  data: [User!]!
+  data: [UserGetAllOutputDataModel!]!
 }
 
-type ServiceResultDataObjectModel {
+type UserGetByIdOutputDataModel {
+  userId: String!
+  email: String!
+  username: String!
+  fullName: String!
+}
+
+type UserGetByIdOutputModel {
   message: String!
-  data: User!
+  data: UserGetByIdOutputDataModel!
+}
+
+type UserInsertOutputDataModel {
+  userId: String!
+  username: String!
+}
+
+type UserInsertOutputModel {
+  message: String!
+  data: UserInsertOutputDataModel!
 }
 
 type Query {
-  getByUserId(userId: String!): ServiceResultDataObjectModel!
-  getAll(id: String!): ServiceResultDataArrayModel!
+  getByUserId(userId: String!): UserGetByIdOutputModel!
+  getAll(id: String!): UserGetAllOutputModel!
+}
+
+type Mutation {
+  insert(username: String!, password: String!, fullName: String!, email: String!): UserInsertOutputModel!
 }

@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Client, ClientGrpc } from '@nestjs/microservices';
 import { GrpcOptions } from '../grpc/grpc.options';
+import { UserInsertInputModel } from './resolver/model/insert/UserInsertInput.model';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -33,12 +34,14 @@ export class UserService implements OnModuleInit {
     return this.grpcUserController.getAll({
       pageNumber: 1,
       pageSize: 10,
-    });
+    }).toPromise();
   }
   async getByUserId(userId) {
-    return this.grpcUserController.get({ userId });
+    return this.grpcUserController.get({ userId }).toPromise();
   }
   async delete(userId) {}
   async update(userId) {}
-  async insert(data) {}
+  async insert(userInsertInputModel: UserInsertInputModel) {
+    return this.grpcUserController.insert(userInsertInputModel).toPromise();
+  }
 }
