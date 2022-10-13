@@ -35,6 +35,16 @@ So in log system, we have userId of the use which called /me service and for oth
 We can  restrict user access to another service by adding JWT Guard to thier related actions.
 
 
+### token 
+All generated tokens are stored in database and with each new token generation,old token related to that user will be expired
+
+In verifing Process, there is 3 step3
+
+1- check the token signature
+
+2- decode the token and extract information from that
+
+3- check the expiration of token stored in database
 ## Logging
 For loggin user activity, we can implement it in many places in the project based our need. for example, it can be implemented in 
 

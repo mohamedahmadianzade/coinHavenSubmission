@@ -6,13 +6,14 @@ import {
   Param,
   Body,
   Req,
-  HttpCode
+  HttpCode,
 } from '@nestjs/common';
 import { BaseController } from '../../general/baseController';
 import { AuthService } from '../service/auth.service';
 import { JwtAuthGuard } from '../passport-strategy/jwt/jwt.auth.guard';
 import { localAuthGuard } from '../passport-strategy/local/local.auth.guard';
-import { VerifyTokenModel } from './verifyToken.model';
+import { VerifyTokenModel } from './model/verifyToken.model';
+import { LoginModel } from './model/login.model';
 
 /**
  * In this controller, I used passport module for Authentication mechanism via local and jwt strategy
@@ -42,13 +43,40 @@ export class AuthController extends BaseController {
   @Post('login')
   @HttpCode(200)
   @UseGuards(localAuthGuard)
-  async login(@Req() req) {
+  async login(@Req() req, @Body() loginModel: LoginModel) {
     return this.controllerResult(
       'Welcome to our System',
       this.authService.generateJwtToken(req.user),
       req,
-      'login'
+      'login',
     );
+  }
+
+  /**
+   *
+   * without using passport module, simple authentication and generating token password
+   * @param {LoginModel} loginModel
+   * @param {*} req
+   * @return {*}
+   * @memberof AuthController
+   */
+  @Post('loginType2')
+  async loginType2(@Body() loginModel: LoginModel, @Req() req) {
+    try {
+      let userInfo = await this.authService.loginType2(
+        loginModel.username,
+        loginModel.password,
+      );
+
+      return this.controllerResult(
+        'welcome to our system',
+        userInfo,
+        req,
+        'login',
+      );
+    } catch (error) {
+      this.handleError(error, req, 'login');
+    }
   }
 
   /**
@@ -69,8 +97,25 @@ export class AuthController extends BaseController {
         userInfo: req.user,
       },
       req,
-      'me'
+      'me',
     );
+  }
+
+  /**
+   *Get user information from jwt token without using passpost module jwt strategy and using guard
+   *
+   * @param {*} req
+   * @return {*}
+   * @memberof AuthController
+   */
+  @Get('meType2')
+  async meType2(@Req() req) {
+    try {
+      let userInfo = await this.authService.meType2(req.headers);
+      return this.controllerResult('User Profile', userInfo, req, 'meType2');
+    } catch (error) {
+      this.handleError(error, req, 'meType2');
+    }
   }
 
   /**
@@ -86,12 +131,8 @@ export class AuthController extends BaseController {
     let result = await this.authService.verifyJwtToken(
       verifyTokenModel.access_token,
     );
-    return this.controllerResult('', result, req,'verify');
+    return this.controllerResult('', result, req, 'me');
   }
 
-
-  @Get()
-  welcome(){
-    return "Welcome to system"
-  }
+  
 }

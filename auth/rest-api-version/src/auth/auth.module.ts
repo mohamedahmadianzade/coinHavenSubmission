@@ -7,9 +7,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { localStrategy } from './passport-strategy/local/local.strategy';
 import { JwtStrategy } from './passport-strategy/jwt/jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TokenEntity } from './service/model/token.entity';
 @Module({
   providers: [AuthService, localStrategy, JwtStrategy],
   imports: [
+    TypeOrmModule.forFeature([TokenEntity]),
     UserModule,
     PassportModule,
     JwtModule.registerAsync({
